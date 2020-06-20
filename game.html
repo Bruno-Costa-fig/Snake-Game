@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Cobrinha</title>
+</head>
+<body>
+    <canvas id="stage" width="400" height="400"></canvas>
+    <script type="text/javascript">
+
+        window.onload = function () {
+
+            var stage = document.getElementById('stage')
+            var ctx = stage.getContext("2d")
+            document.addEventListener("keydown", keyPush)
+            setInterval(game, 80)
+
+            const vel = 1;
+            var vx = vy = 0;
+            var px = 10;
+            var py = 15;
+            var TamPec = 20;
+            var quantPec = 20;
+            var eatx = eaty = 15;
+            var trail = [];
+            tail = 5;
+
+
+            function game() {
+
+                px += vx;
+                py += vy;
+
+                if (px < 0) {
+                    px = quantPec - 1
+                }
+                if (px > quantPec - 1) {
+                    px = 0
+                }
+                if (py < 0) {
+                    py = quantPec - 1
+                }
+                if (py > quantPec - 1) {
+                    py = 0
+                }
+
+
+
+                ctx.fillStyle = 'black'
+                ctx.fillRect(0,0, stage.width, stage.height)
+
+                ctx.fillStyle = 'red'
+                ctx.fillRect(eatx*TamPec, eaty*TamPec, TamPec, TamPec)
+
+                ctx.fillStyle = 'gray'
+
+                // função de parar o o jogo
+                for (var i = 0; i < trail.length; i++) {
+                    ctx.fillRect(trail[i].x*TamPec, trail[i].y*TamPec, TamPec-1, TamPec-1)
+                    if (trail[i] == px && trail[i] == py) {
+                        vx=vy=0
+                        tail = 5
+                    }
+                }
+
+                // tira a ultima peça = movimento correto
+                trail.push({x:px, y:py})
+                while (trail.length > tail) {
+                    trail.shift()
+                }
+
+                // muda a maça de lugar
+                if (eatx == px && eaty == py) {
+                    tail++
+                    eatx = Math.floor(Math.random()*quantPec)
+                    eaty = Math.floor(Math.random()*quantPec)
+                }
+
+            }
+            function keyPush(event) {
+                    switch (event.keyCode) {
+                        case 37: // left
+                            vx = -vel;
+                            vy = 0;
+                            break;
+                        case 38: // up
+                            vx = 0;
+                            vy = -vel;
+                            break;  
+                        case 39: // right
+                            vx = vel;
+                            vy = 0;
+                            break;
+                        case 40: // dowm
+                            vx = 0;
+                            vy = vel;
+                            break;    
+                        default:
+                            
+                            break;
+                    }
+                }
+        }
+    </script>
+</body>
+</html>
