@@ -5,19 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogo da Cobrinha</title>
     <style>
-        canvas {
-            position: relative;
+        #principal {
+            position: absolute;
+            margin-left: 35%;
+            padding-top: 2%;
+        }
+        h2 {
+            text-align: center;
+        }
+        p {
+            text-align: right;
         }
 
     </style>
 </head>
 <body>
-    <div class="principal">
+    <div id="principal">
         <div id="dados">
             <h2 id="titulo">Jogo da Cobrinha</h2>
-            <p id="score">SCORE:</p>
+            <p id="pontos">SCORE:</p> <div id="score"></div>
         </div>
-    <canvas id="stage" width="400" height="400"></canvas>
+        <canvas id="stage" width="400" height="400"></canvas>
     </div>
     <script type="text/javascript">
 
@@ -35,14 +43,15 @@
             var TamPec = 20;
             var quantPec = 20;
             var eatx = eaty = 15;
-            var pontos = 0;
             var trail = [];
-            tail = 5;
-
-            
-
+            tail = 5; 
+            pont = 0;
 
             function game() {
+
+                pont = tail - 5;
+                
+                document.querySelector('#score').innerHTML = pont;
 
                 px += vx;
                 py += vy;
