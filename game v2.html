@@ -16,6 +16,11 @@
         p {
             text-align: right;
         }
+        #score {
+            text-align: right;
+            margin-bottom: 3%;
+            margin-right: 5%;
+        }
 
     </style>
 </head>
@@ -23,7 +28,7 @@
     <div id="principal">
         <div id="dados">
             <h2 id="titulo">Jogo da Cobrinha</h2>
-            <p id="pontos">SCORE:</p> <div id="score"></div>
+            <p id="pontos">SCORE:</p><div id="score"></div>
         </div>
         <canvas id="stage" width="400" height="400"></canvas>
     </div>
@@ -34,7 +39,7 @@
             var stage = document.getElementById('stage')
             var ctx = stage.getContext("2d")
             document.addEventListener("keydown", keyPush)
-            setInterval(game, 80)
+            setInterval(game, 120)
 
             const vel = 1;
             var vx = vy = 0;
@@ -82,11 +87,10 @@
                 // função de parar o o jogo
                 for (var i = 0; i < trail.length; i++) {
                     ctx.fillRect(trail[i].x*TamPec, trail[i].y*TamPec, TamPec-1, TamPec-1)
-                    if (trail[i] == px && trail[i] == py) {
+                    if (trail[i].x == px && trail[i].y == py) {
                         vx=vy=0
                         tail = 5
-                    }
-                }
+                }}
 
                 // tira a ultima peça = movimento correto
                 trail.push({x:px, y:py})
@@ -100,10 +104,9 @@
                     eatx = Math.floor(Math.random()*quantPec)
                     eaty = Math.floor(Math.random()*quantPec)
                 }
-
             }
             // controles do jogo
-            function keyPush(event) {
+                function keyPush(event) {
                     switch (event.keyCode) {
                         case 37: // left
                             vx = -vel;
@@ -126,6 +129,8 @@
                             break;
                     }
                 }
+                
+                
         }
     </script>
 </body>
